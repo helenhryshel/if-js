@@ -32,8 +32,7 @@ for (let i = 0; i < array2.length; i++) {
 }
 
 for (let i = 0; i < array2.length; i++) {
-  result = array2[i] % 2;
-  if (result === 0) {
+  if (array2[i] % 2 === 0) {
     console.log(array2[i]);
   }
 }
