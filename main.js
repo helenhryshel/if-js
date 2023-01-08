@@ -1,53 +1,32 @@
-function palindrome(word) {
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] !== word[word.length - i - 1]) {
-      return false;
+function sum(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+console.log(sum(2)(4));
+
+
+
+const text1 = document.getElementById('text1');
+const text2 = document.getElementById('text2');
+const text3 = document.getElementById('text3');
+
+const colors = ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'];
+
+function getColor() {
+  let i = 0;
+  return function () {
+    this.style.color = colors[i];
+    i++;
+    if (i > 4) {
+      i = 0;
     }
-  }
-  return true;
+  };
 }
 
-console.log(palindrome('wow'));
+text1.addEventListener('click', getColor());
 
-console.log('---------');
+text2.addEventListener('click', getColor());
 
-function min(a, b) {
-  if (a < b) {
-    return a;
-  } else {
-    return b;
-  }
-}
-
-console.log(min(33, 5));
-
-console.log('---------');
-
-function max(a, b) {
-  if (a > b) {
-    return a;
-  } else {
-    return b;
-  }
-}
-
-console.log(max(23, 55));
-
-console.log('---------');
-
-const min2 = (a, b) => (a < b ? a : b); // функция min  с тернарным оператором
-console.log(min2(33, 5));
-
-const max2 = (a, b) => (a > b ? a : b); // функция max  с тернарным оператором
-console.log(max2(23, 55));
-
-console.log('---------');
-
-function replaceElement(array) {
-  for (let i = 0; i < array.length; i++) {
-    array[i] = String(array[i]).replace(/0/g, 'zero');
-  }
-  return array;
-}
-
-console.log(replaceElement([23, 55, 10, 100, 2, 8, 70, 1, 60, 80]));
+text3.addEventListener('click', getColor());
