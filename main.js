@@ -14,9 +14,8 @@ console.log('---------');
 function min(a, b) {
   if (a < b) {
     return a;
-  } else {
-    return b;
   }
+  return b;
 }
 
 console.log(min(33, 5));
@@ -26,9 +25,8 @@ console.log('---------');
 function max(a, b) {
   if (a > b) {
     return a;
-  } else {
-    return b;
   }
+  return b;
 }
 
 console.log(max(23, 55));
@@ -45,7 +43,9 @@ console.log('---------');
 
 function replaceElement(array) {
   for (let i = 0; i < array.length; i++) {
-    array[i] = String(array[i]).replace(/0/g, 'zero');
+    if (String(array[i]).includes('0')) {
+      array[i] = String(array[i]).replace(/0/g, 'zero');
+    }
   }
   return array;
 }
