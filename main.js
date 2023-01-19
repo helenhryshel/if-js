@@ -1,16 +1,10 @@
-function convertDate(date) {
-  const re = /(?<year>\d{4})-(?<month>\d{1,2})-(?<day>\d{1,2})/;
-  const finalDate = date.match(re);
-  for (let i = 2; i < 4; i++) {
-    if (finalDate[i].length < 2) finalDate[i] = '0' + finalDate[i];
-  }
-
-  return finalDate[3] + '.' + finalDate[2] + '.' + finalDate[1];
+function palindrome(str) {
+  return str === str.split('').reverse().join('');
 }
 
-const date = '2023-1-14';
+console.log(palindrome('woorroow'));
 
-console.log(convertDate(date));
+console.log('------------');
 
 const data = [
   {
@@ -58,21 +52,199 @@ const data = [
 function searchPlace(string) {
   const arrayResult = [];
   let stringResult = '';
-  for (let i = 0; i < data.length; i++) {
-    for (const index in data[i]) {
-      const result = data[i][index].match(string);
-
-      if (result !== null) {
-        arrayResult.push(data[i]);
-        break;
-      }
+  data.forEach(function (item) {
+    const findString = function (element) {
+      return element.match(string);
+    };
+    if (Object.values(item).some(findString)) {
+      arrayResult.push(item);
     }
-  }
-  for (let i = 0; i < arrayResult.length; i++) {
-    const values = Object.values(arrayResult[i]);
+  });
+  arrayResult.forEach(function (element) {
+    const values = Object.values(element);
     stringResult = stringResult + '\n' + values.toString();
-  }
+  });
   return stringResult;
 }
 
 console.log(searchPlace('er'));
+
+console.log('------------');
+
+const hotels = [
+  {
+    name: 'Hotel Leopold',
+    city: 'Saint Petersburg',
+    country: 'Russia',
+  },
+  {
+    name: 'Apartment Sunshine',
+    city: 'Santa Cruz de Tenerife',
+    country: 'Spain',
+  },
+  {
+    name: 'Villa Kunerad',
+    city: 'Vysokie Tatry',
+    country: 'Slowakia',
+  },
+  {
+    name: 'Hostel Friendship',
+    city: 'Berlin',
+    country: 'Germany',
+  },
+  {
+    name: 'Radisson Blu Hotel',
+    city: 'Kyiv',
+    country: 'Ukraine',
+  },
+  {
+    name: 'Paradise Hotel',
+    city: 'Guadalupe',
+    country: 'Mexico',
+  },
+  {
+    name: 'Hotel Grindewald',
+    city: 'Interlaken',
+    country: 'Switzerland',
+  },
+  {
+    name: 'The Andaman Resort',
+    city: 'Port Dickson',
+    country: 'Malaysia',
+  },
+  {
+    name: 'Virgin Hotel',
+    city: 'Chicago',
+    country: 'USA',
+  },
+  {
+    name: 'Grand Beach Resort',
+    city: 'Dubai',
+    country: 'United Arab Emirates',
+  },
+  {
+    name: 'Shilla Stay',
+    city: 'Seoul',
+    country: 'South Korea',
+  },
+  {
+    name: 'San Firenze Suites',
+    city: 'Florence',
+    country: 'Italy',
+  },
+  {
+    name: 'The Andaman Resort',
+    city: 'Port Dickson',
+    country: 'Malaysia',
+  },
+  {
+    name: 'Black Penny Villas',
+    city: 'BTDC, Nuca Dua',
+    country: 'Indonesia',
+  },
+  {
+    name: 'Koko Hotel',
+    city: 'Tokyo',
+    country: 'Japan',
+  },
+  {
+    name: 'Ramada Plaza',
+    city: 'Istanbul',
+    country: 'Turkey',
+  },
+  {
+    name: 'Waikiki Resort Hotel',
+    city: 'Hawaii',
+    country: 'USA',
+  },
+  {
+    name: 'Puro Hotel',
+    city: 'Krakow',
+    country: 'Poland',
+  },
+  {
+    name: 'Asma Suites',
+    city: 'Santorini',
+    country: 'Greece',
+  },
+  {
+    name: 'Cityden Apartments',
+    city: 'Amsterdam',
+    country: 'Netherlands',
+  },
+  {
+    name: 'Mandarin Oriental',
+    city: 'Miami',
+    country: 'USA',
+  },
+  {
+    name: 'Concept Terrace Hotel',
+    city: 'Rome',
+    country: 'Italy',
+  },
+  {
+    name: 'Ponta Mar Hotel',
+    city: 'Fortaleza',
+    country: 'Brazil',
+  },
+  {
+    name: 'Four Seasons Hotel',
+    city: 'Sydney',
+    country: 'Australia',
+  },
+  {
+    name: 'Le Meridien',
+    city: 'Nice',
+    country: 'France',
+  },
+  {
+    name: 'Apart Neptun',
+    city: 'Gdansk',
+    country: 'Poland',
+  },
+  {
+    name: 'Lux Isla',
+    city: 'Ibiza',
+    country: 'Spain',
+  },
+  {
+    name: 'Nox Hostel',
+    city: 'London',
+    country: 'UK',
+  },
+  {
+    name: 'Leonardo Vienna',
+    city: 'Vienna',
+    country: 'Austria',
+  },
+  {
+    name: 'Adagio Aparthotel',
+    city: 'Edinburgh',
+    country: 'UK',
+  },
+  {
+    name: 'Steigenberger Hotel',
+    city: 'Hamburg',
+    country: 'Germany',
+  },
+];
+
+const searchCity = function (hotels) {
+  const countries = [];
+  hotels.forEach(function (elem) {
+    countries.push(elem.country);
+  });
+  const uniqueCountries = new Set(countries);
+
+  const city = {};
+  uniqueCountries.forEach(function (country) {
+    city[country] = [];
+    hotels.forEach(function (item) {
+      if (item.country === country) {
+        city[country].push(item.city);
+      }
+    });
+  });
+  return city;
+};
+console.log(searchCity(hotels));
