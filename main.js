@@ -1,5 +1,5 @@
-const sum = a => {
-  return b => {
+const sum = (a) => {
+  return (b) => {
     return a + b;
   };
 };
