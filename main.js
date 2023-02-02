@@ -1,8 +1,5 @@
-const sum = (a) => {
-  return (b) => {
-    return a + b;
-  };
-};
+const sum = (a) => (b) => a + b;
+
 console.log(sum(2)(4));
 
 const text1 = document.getElementById('text1');
@@ -13,9 +10,10 @@ const colors = ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'];
 
 const getColor = () => {
   let i = 0;
-  return () => {
+  return (event) => {
     event.target.style.color = colors[i];
     i++;
+
     if (i > 4) {
       i = 0;
     }
