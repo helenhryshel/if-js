@@ -33,9 +33,11 @@ const obj3 = {
 
 const deepEqual = (object1, object2) => {
   const equal = (object1, object2) => {
-
     for (const key in object1) {
-      if ((typeof(object1[key]) === 'object') && (typeof(object2[key]) === 'object')) {
+      if (
+        typeof object1[key] === 'object' &&
+        typeof object2[key] === 'object'
+      ) {
         equal(object1[key], object2[key]);
       } else {
         if (object1[key] !== object2[key])
@@ -44,7 +46,7 @@ const deepEqual = (object1, object2) => {
     }
   };
 
-  return (equal(object1, object2) !== false) && (equal(object2, object1) !== false);
+  return equal(object1, object2) !== false && equal(object2, object1) !== false;
 };
 
 console.log(deepEqual(obj1, obj2));
