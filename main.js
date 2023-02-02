@@ -40,8 +40,7 @@ const deepEqual = (object1, object2) => {
       ) {
         equal(object1[key], object2[key]);
       } else {
-        if (object1[key] !== object2[key])
-          return false;
+        if (object1[key] !== object2[key]) return false;
       }
     }
   };
