@@ -1,9 +1,12 @@
-function convertDate(date) {
+const date = '2023-2-2';
+
+const convertDate = (date) => {
   const re = /(?<year>\d{4})-(?<month>\d{1,2})-(?<day>\d{1,2})/;
   const re2 = /.?(?<day>\d{2}\.).?(?<month>\d{2}\.)(?<year>\d{4})/;
-  return date.replace(re, '0$<day>.0$<month>.$<year>').replace(re2, '$<day>$<month>$<year>');
-}
-const date = '2023-2-2';
+  return date
+    .replace(re, '0$<day>.0$<month>.$<year>')
+    .replace(re2, '$<day>$<month>$<year>');
+};
 
 console.log(convertDate(date));
 
@@ -50,21 +53,18 @@ const data = [
   },
 ];
 
-function searchPlace(string) {
+const searchPlace = (string) => {
   const arrayResult = [];
 
   for (let i = 0; i < data.length; i++) {
     for (const key in data[i]) {
-      const result = data[i][key].match(string);
-
-      if (result !== null) {
-        arrayResult.push(data[i]);
-        break;
+      if (data[i][key].includes(string)) {
+        arrayResult.push(Object.values(data[i]).join(', '));
       }
     }
   }
 
   return arrayResult;
-}
+};
 
-console.log(searchPlace('ot'));
+console.log(searchPlace('er'));
