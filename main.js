@@ -1,25 +1,70 @@
-const sum = (a) => (b) => a + b;
+const date = '2023-2-2';
 
-console.log(sum(2)(4));
-
-const text1 = document.getElementById('text1');
-const text2 = document.getElementById('text2');
-const text3 = document.getElementById('text3');
-
-const colors = ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'];
-
-const getColor = () => {
-  let i = 0;
-  return (event) => {
-    event.target.style.color = colors[i];
-    i++;
-
-    if (i > 4) {
-      i = 0;
-    }
-  };
+const convertDate = (date) => {
+  const re = /(?<year>\d{4})-(?<month>\d{1,2})-(?<day>\d{1,2})/;
+  const re2 = /.?(?<day>\d{2}\.).?(?<month>\d{2}\.)(?<year>\d{4})/;
+  return date
+    .replace(re, '0$<day>.0$<month>.$<year>')
+    .replace(re2, '$<day>$<month>$<year>');
 };
 
-text1.addEventListener('click', getColor());
-text2.addEventListener('click', getColor());
-text3.addEventListener('click', getColor());
+console.log(convertDate(date));
+
+const data = [
+  {
+    country: 'Russia',
+    city: 'Saint Petersburg',
+    hotel: 'Hotel Leopold',
+  },
+  {
+    country: 'Spain',
+    city: 'Santa Cruz de Tenerife',
+    hotel: 'Apartment Sunshine',
+  },
+  {
+    country: 'Slowakia',
+    city: 'Vysokie Tatry',
+    hotel: 'Villa Kunerad',
+  },
+  {
+    country: 'Germany',
+    city: 'Berlin',
+    hotel: 'Hostel Friendship',
+  },
+  {
+    country: 'Indonesia',
+    city: 'Bali',
+    hotel: 'Ubud Bali Resort&SPA',
+  },
+  {
+    country: 'Netherlands',
+    city: 'Rotterdam',
+    hotel: 'King Kong Hostel',
+  },
+  {
+    country: 'Marocco',
+    city: 'Ourika',
+    hotel: 'Rokoko Hotel',
+  },
+  {
+    country: 'Germany',
+    city: 'Berlin',
+    hotel: 'Hotel Rehberge Berlin Mitte',
+  },
+];
+
+const searchPlace = (string) => {
+  const arrayResult = [];
+
+  for (let i = 0; i < data.length; i++) {
+    for (const key in data[i]) {
+      if (data[i][key].includes(string)) {
+        arrayResult.push(Object.values(data[i]).join(', '));
+      }
+    }
+  }
+
+  return arrayResult;
+};
+
+console.log(searchPlace('er'));
