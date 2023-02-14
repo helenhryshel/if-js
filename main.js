@@ -1,8 +1,8 @@
-function palindrome(str) {
-  return str === str.split('').reverse().join('');
-}
+const palindrome = (str) => {
+  console.log(str === str.split('').reverse().join(''));
+};
 
-console.log(palindrome('woorroow'));
+palindrome('woorroow');
 
 console.log('------------');
 
@@ -229,22 +229,17 @@ const hotels = [
   },
 ];
 
-const searchCity = function (hotels) {
-  const countries = [];
-  hotels.forEach(function (elem) {
-    countries.push(elem.country);
-  });
-  const uniqueCountries = new Set(countries);
-
+const searchCity = (hotels) => {
   const city = {};
-  uniqueCountries.forEach(function (country) {
-    city[country] = [];
-    hotels.forEach(function (item) {
-      if (item.country === country) {
-        city[country].push(item.city);
-      }
-    });
+  hotels.forEach(function (elem) {
+    if (city[elem.country]) {
+      city[elem.country].push(elem.city);
+    } else {
+      city[elem.country] = [elem.city];
+    }
   });
+
   return city;
 };
+
 console.log(searchCity(hotels));
