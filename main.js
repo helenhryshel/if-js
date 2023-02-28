@@ -49,25 +49,16 @@ const data = [
   },
 ];
 
-function searchPlace(string) {
-  const arrayResult = [];
-  let stringResult = '';
-  data.forEach(function (item) {
-    const findString = function (element) {
-      return element.match(string);
-    };
-    if (Object.values(item).some(findString)) {
-      arrayResult.push(item);
+const searchPlace = (data, searchString) =>
+  data.reduce((acc, hotel) => {
+    if (Object.values(hotel).join(' ').includes(searchString)) {
+      acc.push(Object.values(hotel).join(' '));
     }
-  });
-  arrayResult.forEach(function (element) {
-    const values = Object.values(element);
-    stringResult = stringResult + '\n' + values.toString();
-  });
-  return stringResult;
-}
 
-console.log(searchPlace('er'));
+    return acc;
+  }, []);
+
+console.log(searchPlace(data, 'er'));
 
 console.log('------------');
 
@@ -229,17 +220,13 @@ const hotels = [
   },
 ];
 
-const searchCity = (hotels) => {
-  const city = {};
-  hotels.forEach(function (elem) {
-    if (city[elem.country]) {
-      city[elem.country].push(elem.city);
-    } else {
-      city[elem.country] = [elem.city];
-    }
-  });
+const searchCity = (hotels) =>
+  hotels.reduce((acc, hotel) => {
+    acc[hotel.country]
+      ? acc[hotel.country].push(hotel.city)
+      : (acc[hotel.country] = [hotel.city]);
 
-  return city;
-};
+    return acc;
+  }, {});
 
 console.log(searchCity(hotels));
