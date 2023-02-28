@@ -3,6 +3,7 @@ class User {
     this.firstName = firstName;
     this.lastName = lastName;
   }
+
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
@@ -14,20 +15,14 @@ console.log(User1.fullName);
 console.log('---------------');
 
 class Student extends User {
-  constructor(
-    firstName,
-    lastName,
-    admissionYear,
-    courseName,
-    currentYear = 2023)
-  {
+  constructor(firstName, lastName, admissionYear, courseName) {
     super(firstName, lastName);
     this.admissionYear = admissionYear;
-    this.currentYear = currentYear;
     this.courseName = courseName;
   }
+
   get course() {
-    return this.currentYear - this.admissionYear;
+    return new Date().getFullYear() - this.admissionYear;
   }
 }
 
@@ -65,29 +60,28 @@ const studentsData = [
 ];
 
 class Students {
-  constructor(array) {
-    this.array = array;
-  }
-  getInfo() {
-    const sortStList = [];
-    this.array.forEach((element) => {
-      const student = new Student(
-        element.firstName,
-        element.lastName,
-        element.admissionYear,
-        element.courseName,
+  constructor(studentsData) {
+    this.students = studentsData.reduce((acc, item) => {
+      acc.push(
+        new Student(
+          item.firstName,
+          item.lastName,
+          item.admissionYear,
+          item.courseName,
+        ),
       );
-      sortStList.push(student);
-    });
-    sortStList.sort(function (a, b) {
-      return a['course'] - b['course'];
-    });
-    const result = [];
-    sortStList.forEach((element) => {
-      result.push(`${element.fullName} - ${element.courseName}, ${element.course} курс`);
-    });
 
-    return result;
+      return acc;
+    }, []);
+  }
+
+  getInfo() {
+    return this.students
+      .sort((a, b) => a.course - b.course)
+      .map(
+        (student) =>
+          `${student.fullName} - ${student.courseName}, ${student.course}`,
+      );
   }
 }
 
