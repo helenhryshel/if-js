@@ -14,7 +14,7 @@ const colors = {
   },
 };
 
-const changeStyle = id => event => {
+const changeStyle = (id) => (event) => {
   event.target.style.color = colors.next(id).value;
 };
 
