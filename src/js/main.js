@@ -95,3 +95,95 @@ const pictureSlides = (id, data) => {
 };
 
 pictureSlides('guests-container__navigation', data);
+
+const myDropdown = document.getElementById('myDropdown');
+myDropdown.onclick = () => {
+  document.getElementById('dropdown').classList.toggle('show');
+};
+
+window.onclick = function (event) {
+  if (!event.target.matches('.top-section__people')) {
+    const dropdowns = document.getElementsByClassName('dropdown');
+    let i;
+    for (i = 0; i < dropdowns.length; i++) {
+      const openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+};
+
+const minusAdults = document.getElementById('minusAdults');
+const plusAdults = document.getElementById('plusAdults');
+const countNumber = document.getElementById('countNumber');
+const minusChild = document.getElementById('minusChild');
+const plusChild = document.getElementById('plusChild');
+const countNumber2 = document.getElementById('countNumber2');
+const minusRooms = document.getElementById('minusRooms');
+const plusRooms = document.getElementById('plusRooms');
+const countNumber3 = document.getElementById('countNumber3');
+
+const counts = { Adults: 1, Child: 0, Rooms: 1 };
+const countsElement = {
+  Adults: countNumber,
+  Child: countNumber2,
+  Rooms: countNumber3,
+};
+
+const countCalc = (limits, sign, reserveEl) => {
+  if (sign === 'plus') {
+    if (counts[reserveEl] < limits) {
+      counts[reserveEl]++;
+      if (reserveEl === 'Child') {
+        childSection(counts['Child'], sign);
+      }
+    }
+  } else {
+    if (counts[reserveEl] >= limits) {
+      counts[reserveEl]--;
+      if (reserveEl === 'Child') {
+        childSection(counts['Child'], sign);
+      }
+    }
+  }
+  countsElement[reserveEl].innerHTML = counts[reserveEl];
+  myDropdown.placeholder = `${counts['Adults']} Adults — ${counts['Child']} Children — ${counts['Rooms']} Room`;
+};
+
+plusAdults.addEventListener('click', () => countCalc(30, 'plus', 'Adults'));
+minusAdults.addEventListener('click', () => countCalc(2, 'minus', 'Adults'));
+plusChild.addEventListener('click', () => countCalc(10, 'plus', 'Child'));
+minusChild.addEventListener('click', () => countCalc(1, 'minus', 'Child'));
+plusRooms.addEventListener('click', () => countCalc(30, 'plus', 'Rooms'));
+minusRooms.addEventListener('click', () => countCalc(2, 'minus', 'Rooms'));
+
+myDropdown.placeholder = `${counts['Adults']} Adults — ${counts['Child']} Children — ${counts['Rooms']} Room`;
+
+const childText = document.createElement('p');
+childText.hidden = true;
+childText.appendChild(
+  document.createTextNode(
+    'What is the age of the child you’re travelling with?',
+  ),
+);
+document.getElementById('counterChild').appendChild(childText);
+
+const childSection = (num, sign) => {
+  childText.hidden = num <= 0;
+  const selectAge = document.createElement('select');
+  selectAge.id = 'selectAge' + num;
+  for (let i = 0; i < 18; i++) {
+    const childAge = document.createElement('option');
+    selectAge.className = 'age';
+    childAge.value = i;
+    childAge.text = `${i} years old`;
+    selectAge.appendChild(childAge);
+  }
+  if (sign === 'plus') {
+    document.getElementById('counterChild').appendChild(selectAge);
+  } else {
+    num++;
+    document.getElementById('selectAge' + num).remove();
+  }
+};
