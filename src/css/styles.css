@@ -437,8 +437,8 @@ div#guests-container__navigation {
 
 .guests-container__item {
   display: flex;
-  flex-direction: column;
-  width: 25%;
+  justify-content: space-around;
+  gap: 17px;
 }
 
 .guests-container__image-hotel {

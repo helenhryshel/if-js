@@ -64,34 +64,20 @@ const data = [
       'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/the-andaman-resort_d2xksj.jpg',
   },
 ];
+const guestItem = document.createElement('div');
+guestItem.className = 'guests-container__item';
+const array = data.map((num) => {
+  return `<div>
+    <img src="${num.imageUrl}" id="${num.id}">
+    <div>
+    <p class="guests-container__name">${num.name}</p>
+    <p class="guests-container__place">${num.city}, ${num.country}</p>
+    </div>
+    </div>`;
+});
 
-const pictureSlides = (id, data) => {
-  for (const element in data) {
-    const guestItem = document.createElement('div');
-    guestItem.className = 'guests-container__item';
-    guestItem.id = data[element].id;
-    const guestsImg = document.createElement('div');
-    const image = document.createElement('img');
-    image.src = data[element].imageUrl;
-    const places = document.createElement('div');
-    const guestHotel = document.createElement('p');
-    guestHotel.className = 'guests-container__name';
-    const textNameHotel = document.createTextNode(data[element].name);
-    const guestPlace = document.createElement('p');
-    guestPlace.className = 'guests-container__place';
-    const textNameCountry = document.createTextNode(
-      `${data[element].city}, ${data[element].country}`,
-    );
-    guestsImg.appendChild(image);
-    guestItem.appendChild(guestsImg);
-    guestsImg.appendChild(places);
-    places.appendChild(guestHotel);
-    places.appendChild(guestPlace);
-    guestHotel.appendChild(textNameHotel);
-    guestPlace.appendChild(textNameCountry);
+array.forEach((elem) => {
+  guestItem.innerHTML += elem;
+});
 
-    document.getElementById(id).appendChild(guestItem);
-  }
-};
-
-pictureSlides('guests-container__navigation', data);
+document.getElementById('guests-container__navigation').appendChild(guestItem);
