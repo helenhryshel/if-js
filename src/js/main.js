@@ -66,18 +66,18 @@ const data = [
 ];
 const guestItem = document.createElement('div');
 guestItem.className = 'guests-container__item';
-const array = data.map((num) => {
-  return `<div>
-    <img src="${num.imageUrl}" id="${num.id}">
-    <div>
-    <p class="guests-container__name">${num.name}</p>
-    <p class="guests-container__place">${num.city}, ${num.country}</p>
-    </div>
-    </div>`;
-});
 
-array.forEach((elem) => {
-  guestItem.innerHTML += elem;
+const hotelsMarkup = data.map((hotel) =>
+  `<div>
+    <img src="${hotel.imageUrl}" id="${hotel.id}">
+    <div>
+    <p class="guests-container__name">${hotel.name}</p>
+    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    </div>
+    </div>`);
+
+hotelsMarkup.forEach((hotel) => {
+  guestItem.innerHTML += hotel;
 });
 
 document.getElementById('guests-container__navigation').appendChild(guestItem);
