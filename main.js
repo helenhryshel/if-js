@@ -3,21 +3,37 @@ const text2 = document.getElementById('text2');
 const text3 = document.getElementById('text3');
 
 const changeStyle = () => {
-  let index = 0;
+  const iteratorOptions = {
+    colors: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+    from: 0,
+    to: 4,
 
-  const colors = {
-    data: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+    [Symbol.iterator]() {
+      return this;
+    },
 
     next() {
-      if (index === colors.data.length) {
-        index = 0;
+      if (this.current === undefined) {
+        this.current = this.from;
       }
-      return { done: false, value: colors.data[index++] };
+
+      if (this.current < this.to + 1) {
+        return { done: false, value: this.colors[this.current++] };
+      }
+
+      if (this.current >= this.to + 1) {
+        this.current = 0;
+
+        return {
+          done: true,
+          value: this.colors[this.current++],
+        };
+      }
     },
   };
 
   return (event) => {
-    event.target.style.color = colors.next().value;
+    event.target.style.color = iteratorOptions.next().value;
   };
 };
 
