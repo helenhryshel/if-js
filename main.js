@@ -1,89 +1,42 @@
-class User {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+const text1 = document.getElementById('text1');
+const text2 = document.getElementById('text2');
+const text3 = document.getElementById('text3');
 
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-}
-const User1 = new User('Ann', 'Hint');
+const changeStyle = () => {
+  const iteratorOptions = {
+    colors: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+    from: 0,
+    to: 4,
 
-console.log(User1.fullName);
+    [Symbol.iterator]() {
+      return this;
+    },
 
-console.log('---------------');
+    next() {
+      if (this.current === undefined) {
+        this.current = this.from;
+      }
 
-class Student extends User {
-  constructor(firstName, lastName, admissionYear, courseName) {
-    super(firstName, lastName);
-    this.admissionYear = admissionYear;
-    this.courseName = courseName;
-  }
+      if (this.current < this.to + 1) {
+        return { done: false, value: this.colors[this.current++] };
+      }
 
-  get course() {
-    return new Date().getFullYear() - this.admissionYear;
-  }
-}
+      if (this.current >= this.to + 1) {
+        this.current = 0;
 
-const student1 = new Student('Василий', 'Петров', 2019, 'Java');
+        return {
+          done: true,
+          value: this.colors[this.current++],
+        };
+      }
+    },
+  };
 
-console.log(student1);
+  return (event) => {
+    event.target.style.color = iteratorOptions.next().value;
+  };
+};
 
-console.log('---------------');
-
-const studentsData = [
-  {
-    firstName: 'Василий',
-    lastName: 'Петров',
-    admissionYear: 2019,
-    courseName: 'Java',
-  },
-  {
-    firstName: 'Иван',
-    lastName: 'Иванов',
-    admissionYear: 2018,
-    courseName: 'JavaScript',
-  },
-  {
-    firstName: 'Александр',
-    lastName: 'Федоров',
-    admissionYear: 2017,
-    courseName: 'Python',
-  },
-  {
-    firstName: 'Николай',
-    lastName: 'Петров',
-    admissionYear: 2019,
-    courseName: 'Android',
-  },
-];
-
-class Students {
-  constructor(studentsData) {
-    this.students = studentsData.reduce((acc, item) => {
-      acc.push(
-        new Student(
-          item.firstName,
-          item.lastName,
-          item.admissionYear,
-          item.courseName,
-        ),
-      );
-
-      return acc;
-    }, []);
-  }
-
-  getInfo() {
-    return this.students
-      .sort((a, b) => a.course - b.course)
-      .map(
-        (student) =>
-          `${student.fullName} - ${student.courseName}, ${student.course}`,
-      );
-  }
-}
-
-const students = new Students(studentsData);
-console.log(students.getInfo());
+text1.addEventListener('click', changeStyle());
+text2.addEventListener('click', changeStyle());
+text3.addEventListener('click', changeStyle());
