@@ -67,19 +67,18 @@ const data = [
 const guestItem = document.createElement('div');
 guestItem.className = 'guests-container__item';
 
-const hotelsMarkup = data.map(
-  (hotel) =>
-    `<div>
+const hotelsMarkup = data
+  .map(
+    (hotel) =>
+      `<div>
     <img src="${hotel.imageUrl}" id="${hotel.id}">
     <div>
     <p class="guests-container__name">${hotel.name}</p>
     <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
     </div>
     </div>`,
-);
+  )
+  .join('');
 
-hotelsMarkup.forEach((hotel) => {
-  guestItem.innerHTML += hotel;
-});
-
+guestItem.innerHTML = hotelsMarkup;
 document.getElementById('guests-container__navigation').appendChild(guestItem);
