@@ -1783,8 +1783,6 @@ div#guests-container__navigation {
   }
 }
 
-
-
 .options {
   padding: 8px 22px;
   position: absolute;
@@ -1793,9 +1791,8 @@ div#guests-container__navigation {
   row-gap: 8px;
   flex-direction: column;
   width: 295px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   top: 70px;
-
 }
 .options-description-text {
   display: flex;
@@ -1819,31 +1816,30 @@ div#guests-container__navigation {
   column-gap: 20px;
 }
 .options-button {
-  color: #3077C6;
+  color: #3077c6;
   font-size: 18px;
   width: 30px;
   height: 30px;
-  border: 1px solid #3077C6;
+  border: 1px solid #3077c6;
   cursor: pointer;
   transform: none;
 }
 .options-button:disabled {
-  color: #CECECE;
-  border: 1px solid #CECECE;
+  color: #cecece;
+  border: 1px solid #cecece;
 }
-.options-button :disabled{
-  color: #3077C6;
+.options-button :disabled {
+  color: #3077c6;
   font-size: 18px;
   width: 30px;
   height: 30px;
-  border: 1px solid #3077C6;
+  border: 1px solid #3077c6;
   cursor: pointer;
   transform: none;
 }
 .options-child-age-select {
-  border: 1px solid #3077C6;
+  border: 1px solid #3077c6;
   padding: 4px 8px;
-
 }
 .options-counter-number {
   margin-top: 5px;
