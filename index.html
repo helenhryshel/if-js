@@ -62,12 +62,117 @@
                 placeholder="Tue 15 Sept — Sat 19 Sept"
               />
             </div>
-            <div class="top-section__elements people-width">
-              <input
-                class="top-section__people"
-                type="text"
-                placeholder="2 Adults — 0 Children — 1 Room"
-              />
+            <div id="sectionPeople" class="top-section__elements people-width">
+              <input id="myDropdown" class="top-section__people" type="text" />
+              <div id="dropdown" class="filter">
+                <div class="people_filter">
+                  <div class="count">
+                    <p>Adults</p>
+                    <div class="counter">
+                      <button id="minusAdults" class="square_min" type="button">
+                        <svg
+                          width="10"
+                          height="3"
+                          viewBox="0 0 10 3"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.32422 0.942383V2.27832H0.517578V0.942383H9.32422Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                      <p id="countNumber">1</p>
+                      <button id="plusAdults" class="square_max" type="button">
+                        <svg
+                          width="9"
+                          height="10"
+                          viewBox="0 0 9 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.85059 4.13574V5.66504H0.0791016V4.13574H8.85059ZM5.28223 0.400391V9.7168H3.65625V0.400391H5.28223Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="count">
+                    <p>Children</p>
+                    <div class="counter">
+                      <button id="minusChild" class="square_min" type="button">
+                        <svg
+                          width="10"
+                          height="3"
+                          viewBox="0 0 10 3"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.32422 0.942383V2.27832H0.517578V0.942383H9.32422Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                      <p id="countNumber2">0</p>
+                      <button id="plusChild" class="square_max" type="button">
+                        <svg
+                          width="9"
+                          height="10"
+                          viewBox="0 0 9 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.85059 4.13574V5.66504H0.0791016V4.13574H8.85059ZM5.28223 0.400391V9.7168H3.65625V0.400391H5.28223Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="count">
+                    <p>Rooms</p>
+                    <div class="counter">
+                      <button id="minusRooms" class="square_min" type="button">
+                        <svg
+                          width="10"
+                          height="3"
+                          viewBox="0 0 10 3"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.32422 0.942383V2.27832H0.517578V0.942383H9.32422Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                      <p id="countNumber3">1</p>
+                      <button id="plusRooms" class="square_max" type="button">
+                        <svg
+                          width="9"
+                          height="10"
+                          viewBox="0 0 9 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.85059 4.13574V5.66504H0.0791016V4.13574H8.85059ZM5.28223 0.400391V9.7168H3.65625V0.400391H5.28223Z"
+                            fill="#3077C6"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="selectChildAge" class="child_age">
+                  <div id="counterChild" class="counterChild"></div>
+                </div>
+              </div>
             </div>
             <button class="top-section__button items__size" type="submit">
               Search
