@@ -487,7 +487,6 @@ li {
   text-align: center;
 }
 
-
 .section_Search {
   display: flex;
   flex-direction: column;
@@ -1786,7 +1785,6 @@ div#guests-container__navigation {
     font-size: 12px;
   }
 }
-
 
 .options {
   padding: 8px 22px;
