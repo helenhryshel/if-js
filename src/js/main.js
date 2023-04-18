@@ -247,3 +247,31 @@ const searchPlace = (search) => {
 document.querySelector('.top-section__button').addEventListener('click', () => {
   searchPlace(document.getElementById('destination').value);
 });
+
+//Form
+
+const form = document.getElementById('form');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const options = {
+    method: 'POST',
+    body: new FormData(form),
+  };
+
+  const result = await fetch(
+    'https://if-student-api.onrender.com/api/file',
+    options,
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      return response.json();
+    })
+    .then((result) => result)
+    .catch((error) => console.log(error.message));
+
+  console.log(result);
+});
