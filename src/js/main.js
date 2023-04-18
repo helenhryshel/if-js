@@ -160,20 +160,18 @@ const guestData = (data) => {
   const guestItem = document.createElement('div');
   guestItem.className = 'guests-container__item';
 
-  const hotelsMarkup = data.map(
-    (hotel) =>
-      `<div>
+  document.getElementById('guests-container__navigation').innerHTML = data
+    .map(
+      (hotel) =>
+        `<div>
     <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
     <div>
     <p class="guests-container__name">${hotel.name}</p>
     <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
     </div>
      </div>`,
-  );
-
-  hotelsMarkup.forEach((hotel) => {
-    document.getElementById('guests-container__navigation').innerHTML += hotel;
-  });
+    )
+    .join('');
 };
 
 fetch('https://if-student-api.onrender.com/api/hotels/popular')
