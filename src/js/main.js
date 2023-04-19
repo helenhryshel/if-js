@@ -1,88 +1,3 @@
-const data = [
-  {
-    id: '71ce9eac-e9b9-44f0-a342-9ff0b565f3b7',
-    name: 'Hotel Leopold',
-    city: 'Saint Petersburg',
-    country: 'Russia',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/hotel-leopold_mflelk.jpg',
-  },
-  {
-    id: 'aa560608-a879-48a7-80b6-deff2806b250',
-    name: 'Apartment Sunshine',
-    city: 'Santa  Cruz de Tenerife',
-    country: 'Spain',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379364/fe/apartment-sunshine_vhdlel.jpg',
-  },
-  {
-    id: '1d88fefe-edf1-4cda-844a-babbf29bb2b3',
-    name: 'Villa Kunerad',
-    city: 'Vysokie Tatry',
-    country: 'Slowakia',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/villa-kunerad_gdbqgv.jpg',
-  },
-  {
-    id: 'a2bf824d-edd8-41f0-8b70-244334086ab4',
-    name: 'Hostel Friendship',
-    city: 'Berlin',
-    country: 'Germany',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379364/fe/hostel-friendship_aw6tn7.jpg',
-  },
-  {
-    id: '4024535d-a498-4274-b7cb-f01ada962971',
-    name: 'Radisson Blu Hotel',
-    city: 'Kyiv',
-    country: 'Ukraine',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/radisson-blu-hotel_jwtowg.jpg',
-  },
-  {
-    id: 'e51e71f6-6baf-4493-b3ae-25dc27cdc238',
-    name: 'Paradise Hotel',
-    city: 'Guadalupe',
-    country: 'Mexico',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/paradise-hotel_i6whae.jpg',
-  },
-  {
-    id: '87d2b966-2431-43f3-8c0d-2c8723474dfc',
-    name: 'Hotel Grindewald',
-    city: 'Interlaken',
-    country: 'Switzerland',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/hotel-grindewald_zsjsmy.jpg',
-  },
-  {
-    id: '190221c6-b18f-4dba-97de-e35f0e14c023',
-    name: 'The Andaman Resort',
-    city: 'Port Dickson',
-    country: 'Malaysia',
-    imageUrl:
-      'https://res.cloudinary.com/intellectfox/image/upload/v1610379365/fe/the-andaman-resort_d2xksj.jpg',
-  },
-];
-const guestItem = document.createElement('div');
-guestItem.className = 'guests-container__item';
-
-const hotelsMarkup = data
-  .map(
-    (hotel) =>
-      `<div>
-    <img src="${hotel.imageUrl}" id="${hotel.id}">
-    <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
-    </div>
-    </div>`,
-  )
-  .join('');
-
-guestItem.innerHTML = hotelsMarkup;
-document.getElementById('guests-container__navigation').appendChild(guestItem);
-
 const optionsData = {
   adults: {
     min: 1,
@@ -110,8 +25,8 @@ const createOptionsDiv = () => {
   optionsDiv.classList.add('options');
   optionsDiv.setAttribute('id', 'options');
   optionsDiv.innerHTML = `<div class="options-items" id="options-items"></div>
-      <div class="options-text-div" id="options-text-div"></div>
-      <div class="options-select-items" id="options-select-items"></div>`;
+       <div class="options-text-div" id="options-text-div"></div>
+       <div class="options-select-items" id="options-select-items"></div>`;
   searchInfo.appendChild(optionsDiv);
   createOptions();
   searchInfo.removeEventListener('click', createOptionsDiv);
@@ -123,17 +38,17 @@ const createOptions = () => {
     const optionsItem = document.createElement('div');
     optionsItem.classList.add('options-item');
     optionsItem.innerHTML = `
-        <div class="options-description-text">
-          <span>${capitalizeFirstLetter(option)}</span>
-        </div>
-        <div class="options-item-buttons">
-          <button class="options-button options-minus-button_js" id="options-minus-button-${option}"  type="button" >—</button>
-          <span class="options-counter-number" id="options-counter-number-${option}">${
+         <div class="options-description-text">
+           <span>${capitalizeFirstLetter(option)}</span>
+         </div>
+         <div class="options-item-buttons">
+           <button class="options-button options-minus-button_js" id="options-minus-button-${option}"  type="button" >—</button>
+           <span class="options-counter-number" id="options-counter-number-${option}">${
       optionsData[option].value
     }</span>
-          <button class="options-button options-plus-button_js" id="options-plus-button-${option}" type="button">+</button>
-        </div>
-      `;
+           <button class="options-button options-plus-button_js" id="options-plus-button-${option}" type="button">+</button>
+         </div>
+       `;
     optionsItems.appendChild(optionsItem);
     document
       .getElementById(`options-plus-button-${option}`)
@@ -172,8 +87,8 @@ const removeChildrenAge = () => {
 const addChildrenAgeQuestion = () => {
   const optionsTextDiv = document.getElementById('options-text-div');
   optionsTextDiv.innerHTML = `
-    <span class="options-text" id="options-text">What is the age of the child you’re travelling with?</span>
-  `;
+     <span class="options-text" id="options-text">What is the age of the child you’re travelling with?</span>
+   `;
 };
 
 const removeChildrenAgeQuestion = () => {
@@ -240,3 +155,35 @@ const refreshOptionCounter = (optionName) => {
 };
 
 searchInfo.addEventListener('click', createOptionsDiv);
+
+const guestData = (data) => {
+  const guestItem = document.createElement('div');
+  guestItem.className = 'guests-container__item';
+
+  document.getElementById('guests-container__navigation').innerHTML = data
+    .map(
+      (hotel) =>
+        `<div>
+    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <div>
+    <p class="guests-container__name">${hotel.name}</p>
+    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    </div>
+     </div>`,
+    )
+    .join('');
+};
+
+fetch('https://if-student-api.onrender.com/api/hotels/popular')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    guestData(data);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });

@@ -524,28 +524,9 @@ div#guests-container__navigation {
   gap: 17px;
 }
 
-.guests-container__image-hotel {
+.picture {
   width: 296px;
   height: 296px;
-  background-image: url('../images/hotel.png');
-}
-
-.guests-container__image-apartment {
-  width: 296px;
-  height: 296px;
-  background-image: url('../images/apartment.png');
-}
-
-.guests-container__image-villa {
-  width: 296px;
-  height: 296px;
-  background-image: url('../images/villa.png');
-}
-
-.guests-container__image-hostel {
-  width: 296px;
-  height: 296px;
-  background-image: url('../images/hostel.png');
 }
 
 .guests-container__name {
