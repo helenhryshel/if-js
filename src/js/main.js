@@ -156,19 +156,12 @@ const refreshOptionCounter = (optionName) => {
 
 searchInfo.addEventListener('click', createOptionsDiv);
 
-fetch('https://if-student-api.onrender.com/api/hotels/popular')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`${response.status} - ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-    const guestItem = document.createElement('div');
-    guestItem.className = 'guests-container__item';
+const guestData = (data) => {
+  const guestItem = document.createElement('div');
+  guestItem.className = 'guests-container__item';
 
-    const hotelsMarkup = data.map(
+  document.getElementById('guests-container__navigation').innerHTML = data
+    .map(
       (hotel) =>
         `<div>
     <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
@@ -177,12 +170,19 @@ fetch('https://if-student-api.onrender.com/api/hotels/popular')
     <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
     </div>
      </div>`,
-    );
+    )
+    .join('');
+};
 
-    hotelsMarkup.forEach((hotel) => {
-      document.getElementById('guests-container__navigation').innerHTML +=
-        hotel;
-    });
+fetch('https://if-student-api.onrender.com/api/hotels/popular')
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    guestData(data);
   })
   .catch((err) => {
     console.log(err.message);
@@ -203,6 +203,24 @@ const searchBlock = `<div class="searchTitle">
 </div>`;
 sectionSearch.innerHTML = searchBlock;
 
+const hotels = (data) => {
+  const guestItem = document.createElement('div');
+  guestItem.className = 'guests-container__item';
+
+  pictureBlock.innerHTML = data
+    .map(
+      (hotel) =>
+        `<div>
+    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <div>
+    <p class="guests-container__name">${hotel.name}</p>
+    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    </div>
+     </div>`,
+    )
+    .join('');
+};
+
 const searchPlace = (search) => {
   fetch(`https://if-student-api.onrender.com/api/hotels?search=${search}`)
     .then((response) => {
@@ -212,23 +230,7 @@ const searchPlace = (search) => {
       return response.json();
     })
     .then((data) => {
-      const guestItem = document.createElement('div');
-      guestItem.className = 'guests-container__item';
-
-      const hotelsMarkup = data.map(
-        (hotel) =>
-          `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
-    <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
-    </div>
-     </div>`,
-      );
-      pictureBlock.innerHTML = '';
-      hotelsMarkup.forEach((hotel) => {
-        pictureBlock.innerHTML += hotel;
-      });
+      hotels(data);
       sectionSearch.appendChild(pictureBlock);
       sectionSearch.style.display = data.length === 0 ? 'none' : 'flex';
     })
