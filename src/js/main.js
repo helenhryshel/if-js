@@ -198,11 +198,6 @@ document.getElementById('top-section').after(sectionSearch);
 const pictureBlock = document.createElement('div');
 pictureBlock.className = 'picture_Block';
 
-const searchBlock = `<div class="searchTitle">
-<h2 class="searchTitleName">Available hotels</h2>
-</div>`;
-sectionSearch.innerHTML = searchBlock;
-
 const hotels = (data) => {
   const guestItem = document.createElement('div');
   guestItem.className = 'guests-container__item';
@@ -222,7 +217,9 @@ const hotels = (data) => {
 };
 
 const searchPlace = (search) => {
-  fetch(`https://if-student-api.onrender.com/api/hotels?search=${search}`)
+  const url = new URL('https://if-student-api.onrender.com/api/hotels');
+  url.searchParams.append('search', search);
+  fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`${response.status} - ${response.statusText}`);
@@ -231,8 +228,16 @@ const searchPlace = (search) => {
     })
     .then((data) => {
       hotels(data);
+      let title;
+      data.length === 0
+        ? (title = 'Available hotels not founded')
+        : (title = 'Available hotels');
+      sectionSearch.innerHTML = `<div class="searchTitle">
+<h2 class="searchTitleName">${title}</h2>
+</div>`;
       sectionSearch.appendChild(pictureBlock);
-      sectionSearch.style.display = data.length === 0 ? 'none' : 'flex';
+      sectionSearch.style.display = 'flex';
+      sectionSearch.scrollIntoView({ block: 'center', behavior: 'smooth' });
     })
     .catch((err) => {
       console.log(err.message);
