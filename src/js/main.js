@@ -211,15 +211,15 @@ const hotels = (data) => {
 
   pictureBlock.innerHTML = data
     .map(
-    (hotel) =>
-      `<div>
+      (hotel) =>
+        `<div>
     <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
     <div>
     <p class="guests-container__name">${hotel.name}</p>
     <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
     </div>
      </div>`,
-  )
+    )
     .join('');
 };
 
@@ -234,17 +234,17 @@ const searchPlace = (search) => {
       return response.json();
     })
     .then((data) => {
-     hotels(data);
-     let title;
-     data.length === 0
-       ? (title = 'Available hotels not founded')
-       : (title = 'Available hotels');
-     sectionSearch.innerHTML = `<div class="searchTitle">
+      hotels(data);
+      let title;
+      data.length === 0
+        ? (title = 'Available hotels not founded')
+        : (title = 'Available hotels');
+      sectionSearch.innerHTML = `<div class="searchTitle">
 <h2 class="searchTitleName">${title}</h2>
 </div>`;
       sectionSearch.appendChild(pictureBlock);
       sectionSearch.style.display = 'flex';
-      sectionSearch.scrollIntoView({block: 'center', behavior: 'smooth'});
+      sectionSearch.scrollIntoView({ block: 'center', behavior: 'smooth' });
     })
     .catch((err) => {
       console.log(err.message);
