@@ -176,8 +176,8 @@ const guestData = (data) => {
   });
 };
 
-if (sessionStorage.getItem('json')) {
-  const data = JSON.parse(sessionStorage.getItem('json'));
+if (sessionStorage.getItem('popularHotels')) {
+  const data = JSON.parse(sessionStorage.getItem('popularHotels'));
   guestData(data);
 } else {
   fetch('https://if-student-api.onrender.com/api/hotels/popular')
@@ -188,7 +188,7 @@ if (sessionStorage.getItem('json')) {
       return response.json();
     })
     .then((data) => {
-      sessionStorage.setItem('json', JSON.stringify(data));
+      sessionStorage.setItem('popularHotels', JSON.stringify(data));
       guestData(data);
     })
     .catch((err) => {
