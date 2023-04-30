@@ -187,3 +187,63 @@ fetch('https://if-student-api.onrender.com/api/hotels/popular')
   .catch((err) => {
     console.log(err.message);
   });
+
+//"Available hotels" block
+
+const sectionSearch = document.createElement('div');
+sectionSearch.className = 'section_Search';
+sectionSearch.style.display = 'none';
+document.getElementById('top-section').after(sectionSearch);
+
+const pictureBlock = document.createElement('div');
+pictureBlock.className = 'picture_Block';
+
+const hotels = (data) => {
+  const guestItem = document.createElement('div');
+  guestItem.className = 'guests-container__item';
+
+  pictureBlock.innerHTML = data
+    .map(
+      (hotel) =>
+        `<div>
+    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <div>
+    <p class="guests-container__name">${hotel.name}</p>
+    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    </div>
+     </div>`,
+    )
+    .join('');
+};
+
+const searchPlace = (search) => {
+  const url = new URL('https://if-student-api.onrender.com/api/hotels');
+  url.searchParams.append('search', search);
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${response.status} - ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      hotels(data);
+      let title;
+      data.length === 0
+        ? (title = 'Available hotels not founded')
+        : (title = 'Available hotels');
+      sectionSearch.innerHTML = `<div class="searchTitle">
+<h2 class="searchTitleName">${title}</h2>
+</div>`;
+      sectionSearch.appendChild(pictureBlock);
+      sectionSearch.style.display = 'flex';
+      sectionSearch.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+document.querySelector('.top-section__button').addEventListener('click', () => {
+  searchPlace(document.getElementById('destination').value);
+});

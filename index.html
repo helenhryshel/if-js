@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="top-section">
+      <div id="top-section" class="top-section">
         <div class="container">
           <header class="top-section__header">
             <div class="top-section__logo"></div>
@@ -40,7 +40,10 @@
             </h1>
           </div>
           <form class="top-section__search-container_desktop">
-            <div class="top-section__elements destination-width">
+            <div
+              id="select_destination"
+              class="top-section__elements destination-width"
+            >
               <div class="label-destination">
                 <label for="destination">Your destination or hotel name</label>
               </div>
@@ -174,7 +177,7 @@
                 </div>
               </div>
             </div>
-            <button class="top-section__button items__size" type="submit">
+            <button class="top-section__button items__size" type="button">
               Search
             </button>
           </form>
