@@ -160,34 +160,41 @@ const guestData = (data) => {
   const guestItem = document.createElement('div');
   guestItem.className = 'guests-container__item';
 
-  document.getElementById('guests-container__navigation').innerHTML = data
-    .map(
-      (hotel) =>
-        `<div>
+  const hotelsMarkup = data.map(
+    (hotel) =>
+      `<div>
     <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
     <div>
     <p class="guests-container__name">${hotel.name}</p>
     <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
     </div>
      </div>`,
-    )
-    .join('');
+  );
+
+  hotelsMarkup.forEach((hotel) => {
+    document.getElementById('guests-container__navigation').innerHTML += hotel;
+  });
 };
 
-fetch('https://if-student-api.onrender.com/api/hotels/popular')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`${response.status} - ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    guestData(data);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-
+if (sessionStorage.getItem('popularHotels')) {
+  const data = JSON.parse(sessionStorage.getItem('popularHotels'));
+  guestData(data);
+} else {
+  fetch('https://if-student-api.onrender.com/api/hotels/popular')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${response.status} - ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      sessionStorage.setItem('popularHotels', JSON.stringify(data));
+      guestData(data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
 //"Available hotels" block
 
 const sectionSearch = document.createElement('div');
