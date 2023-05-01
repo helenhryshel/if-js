@@ -176,8 +176,8 @@ const guestData = (data) => {
   });
 };
 
-if (sessionStorage.getItem('json')) {
-  const data = JSON.parse(sessionStorage.getItem('json'));
+if (sessionStorage.getItem('popularHotels')) {
+  const data = JSON.parse(sessionStorage.getItem('popularHotels'));
   guestData(data);
 } else {
   fetch('https://if-student-api.onrender.com/api/hotels/popular')
@@ -188,7 +188,7 @@ if (sessionStorage.getItem('json')) {
       return response.json();
     })
     .then((data) => {
-      sessionStorage.setItem('json', JSON.stringify(data));
+      sessionStorage.setItem('popularHotels', JSON.stringify(data));
       guestData(data);
     })
     .catch((err) => {
@@ -205,13 +205,28 @@ document.getElementById('top-section').after(sectionSearch);
 const pictureBlock = document.createElement('div');
 pictureBlock.className = 'picture_Block';
 
-const searchBlock = `<div class="searchTitle">
-<h2 class="searchTitleName">Available hotels</h2>
-</div>`;
-sectionSearch.innerHTML = searchBlock;
+const hotels = (data) => {
+  const guestItem = document.createElement('div');
+  guestItem.className = 'guests-container__item';
+
+  pictureBlock.innerHTML = data
+    .map(
+      (hotel) =>
+        `<div>
+    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <div>
+    <p class="guests-container__name">${hotel.name}</p>
+    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    </div>
+     </div>`,
+    )
+    .join('');
+};
 
 const searchPlace = (search) => {
-  fetch(`https://if-student-api.onrender.com/api/hotels?search=${search}`)
+  const url = new URL('https://if-student-api.onrender.com/api/hotels');
+  url.searchParams.append('search', search);
+  fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`${response.status} - ${response.statusText}`);
@@ -219,25 +234,17 @@ const searchPlace = (search) => {
       return response.json();
     })
     .then((data) => {
-      const guestItem = document.createElement('div');
-      guestItem.className = 'guests-container__item';
-
-      const hotelsMarkup = data.map(
-        (hotel) =>
-          `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
-    <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
-    </div>
-     </div>`,
-      );
-      pictureBlock.innerHTML = '';
-      hotelsMarkup.forEach((hotel) => {
-        pictureBlock.innerHTML += hotel;
-      });
+      hotels(data);
+      let title;
+      data.length === 0
+        ? (title = 'Available hotels not founded')
+        : (title = 'Available hotels');
+      sectionSearch.innerHTML = `<div class="searchTitle">
+<h2 class="searchTitleName">${title}</h2>
+</div>`;
       sectionSearch.appendChild(pictureBlock);
-      sectionSearch.style.display = data.length === 0 ? 'none' : 'flex';
+      sectionSearch.style.display = 'flex';
+      sectionSearch.scrollIntoView({ block: 'center', behavior: 'smooth' });
     })
     .catch((err) => {
       console.log(err.message);
