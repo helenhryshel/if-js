@@ -161,12 +161,12 @@ const guestData = (data) => {
   guestItem.className = 'guests-container__item';
 
   const hotelsMarkup = data.map(
-    (hotel) =>
+    ({ imageUrl, id, name, city, country }) =>
       `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <img class="picture"  src="${imageUrl}" id="${id}">
     <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    <p class="guests-container__name">${name}</p>
+    <p class="guests-container__place">${city}, ${country}</p>
     </div>
      </div>`,
   );
@@ -211,12 +211,12 @@ const hotels = (data) => {
 
   pictureBlock.innerHTML = data
     .map(
-      (hotel) =>
+      ({ imageUrl, id, name, city, country }) =>
         `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <img class="picture" src="${imageUrl}" id="${id}">
     <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    <p class="guests-container__name">${name}</p>
+    <p class="guests-container__place">${city}, ${country}</p>
     </div>
      </div>`,
     )
