@@ -161,12 +161,12 @@ const guestData = (data) => {
   guestItem.className = 'guests-container__item';
 
   const hotelsMarkup = data.map(
-    (hotel) =>
+    ({ imageUrl, id, name, city, country }) =>
       `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <img class="picture"  src="${imageUrl}" id="${id}">
     <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    <p class="guests-container__name">${name}</p>
+    <p class="guests-container__place">${city}, ${country}</p>
     </div>
      </div>`,
   );
@@ -211,21 +211,24 @@ const hotels = (data) => {
 
   pictureBlock.innerHTML = data
     .map(
-      (hotel) =>
+      ({ imageUrl, id, name, city, country }) =>
         `<div>
-    <img class="picture"  src="${hotel.imageUrl}" id="${hotel.id}">
+    <img class="picture" src="${imageUrl}" id="${id}">
     <div>
-    <p class="guests-container__name">${hotel.name}</p>
-    <p class="guests-container__place">${hotel.city}, ${hotel.country}</p>
+    <p class="guests-container__name">${name}</p>
+    <p class="guests-container__place">${city}, ${country}</p>
     </div>
      </div>`,
     )
     .join('');
 };
 
-const searchPlace = (search) => {
+const searchPlace = (search, adults, children, rooms) => {
   const url = new URL('https://if-student-api.onrender.com/api/hotels');
   url.searchParams.append('search', search);
+  url.searchParams.append('adults', adults);
+  url.searchParams.append('children', children);
+  url.searchParams.append('rooms', rooms);
   fetch(url)
     .then((response) => {
       if (!response.ok) {
@@ -251,6 +254,51 @@ const searchPlace = (search) => {
     });
 };
 
+const getChildrenAge = () => {
+  const arraySelectors = document.querySelectorAll(
+    'select.options-child-age-select',
+  );
+  const childrenAgeList = [];
+  for (let i = 0; i < arraySelectors.length; i++) {
+    childrenAgeList.push(arraySelectors.item(i).value);
+  }
+
+  return childrenAgeList.join(',');
+};
+
 document.querySelector('.top-section__button').addEventListener('click', () => {
-  searchPlace(document.getElementById('destination').value);
+  searchPlace(
+    document.getElementById('destination').value,
+    document.getElementById('options-counter-number-adults').textContent,
+    getChildrenAge(),
+    document.getElementById('options-counter-number-rooms').textContent,
+  );
+});
+
+//Form
+
+const form = document.getElementById('form');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const options = {
+    method: 'POST',
+    body: new FormData(form),
+  };
+
+  const result = await fetch(
+    'https://if-student-api.onrender.com/api/file',
+    options,
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      return response.json();
+    })
+    .then((result) => result)
+    .catch((error) => console.log(error.message));
+
+  console.log(result);
 });
